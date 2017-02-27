@@ -23,7 +23,7 @@
   function has_valid_email_format($value) {
     // Function can be improved later to check for
     // more than just '@'.
-    return (preg_match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i', $value) == 1 );
+    return (preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i', $value) == 1 );
     //return (preg_match("/^[a-zA-Z0-9_-@.]+$/", $value) == 1);
   }
 

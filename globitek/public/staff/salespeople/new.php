@@ -1,8 +1,8 @@
 <?php
   require_once('../../../private/initialize.php');
-  require_once('../private/functions.php');
-  require_once('../private/validation_functions.php');
-  require_once('../private/database.php');
+  require_once('../../../private/functions.php');
+  require_once('../../../private/validation_functions.php');
+  require_once('../../../private/database.php');
   // Set default values for all variables the page needs.
   $firstname = "";
   $lastname = "";
@@ -66,6 +66,10 @@
     }
     if(!has_length($phone_no, array('min'=> 1, 'max'=>255))){
       $errors[] = "Phone Number must be less than 255 characters";
+      $i++;
+    }
+    if(!has_valid_phone($phone_no)){
+      $errors[] = "Phone Number is invalid";
       $i++;
     }
 

@@ -79,12 +79,18 @@
   function update_state($state) {
     global $db;
 
+    $sql = "UPDATE states SET ";
+    $sql .= "name='" . $state['name'] . "', ";
+    $sql .= "code='" . $state['code'] . "', ";
+    $sql .= "WHERE id='" . $state['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     $errors = validate_state($state);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+
     // For update_state statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -170,7 +176,11 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE territories SET ";
+    $sql .= "name='" . $territory['name'] . "', ";
+    $sql .= "position='" . $territory['position'] . "', ";
+    $sql .= "WHERE id='" . $territory['id'] . "' ";
+    $sql .= "LIMIT 1;";
     // For update_territory statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -254,13 +264,19 @@
   // Either returns true or an array of errors
   function update_salesperson($salesperson) {
     global $db;
-
+    $sql = "UPDATE salespeople SET ";
+    $sql .= "first_name='" . $salesperson['first_name'] . "', ";
+    $sql .= "last_name='" . $salesperson['last_name'] . "', ";
+    $sql .= "email='" . $salesperson['email'] . "', ";
+    $sql .= "phone='" . $salesperson['phone'] . "' ";
+    $sql .= "WHERE id='" . $salesperson['id'] . "' ";
+    $sql .= "LIMIT 1;";
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {

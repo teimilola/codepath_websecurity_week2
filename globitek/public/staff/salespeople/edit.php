@@ -2,6 +2,7 @@
 require_once('../../../private/initialize.php');
 require_once('../../../private/functions.php');
 require_once('../../../private/validation_functions.php');
+require_once('../../../private/query_functions.php');
 
 if(!isset($_GET['id'])) {
   redirect_to('index.php');
@@ -27,7 +28,6 @@ $errors = array();
     if(isset($_POST["email"])){
       $salesperson['email'] = sanitize_input($_POST["email"]);
     }
-
 
     // Perform Validations
 
@@ -75,14 +75,19 @@ $errors = array();
       $i++;
     }
     if(!has_valid_name($salesperson['first_name'])){
-          $errors[] = "Invalid first name";
-          $i++;
-        }
+      $errors[] = "Invalid first name";
+      $i++;
+    }
 
+    if(!has_valid_phone($salesperson['phone'])){
+      $errors[] = "Invalid phone no";
+      $i++;
+    }
   if(empty($errors)){
-    $result = update_user($salesperson);
+    $result = update_salesperson($salesperson);
     if($result === true) {
-      redirect_to('show.php?id=' . $salesperson['id']);
+      header("Location: show.php?id=".$salesperson['id']);
+      //redirect_to('show.php?id='.$salesperson['id']);
     } else {
       $errors = $result;
     }
@@ -107,7 +112,7 @@ $errors = array();
   <h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
 
   <!-- TODO add form -->
-  <form method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+  <form method="POST" action="edit.php?id=<?php echo $salesperson['id'];?>">
         FirstName: <br>
         <input type= "text" name = "firstname" value="<?php if(is_post_request()){ echo h($_POST["firstname"]); } else{echo $salesperson['first_name'];} ?>">
         <br>

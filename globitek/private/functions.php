@@ -12,6 +12,7 @@
     $string = h($string);
     $string = trim($string);
     $string = stripslashes($string);
+    return $string;
   }
 
   function raw_u($string="") {
